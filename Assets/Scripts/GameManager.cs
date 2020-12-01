@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -35,6 +36,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         SwatterAction();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
     }
     /// <summary>
     /// Clicking the mouse button or pressing space swats the swatter
@@ -65,5 +70,12 @@ public class GameManager : MonoBehaviour
             swatter.SmackSound();
             title.WobbleTitle();
         }
+    }
+    public void QuitGame()
+    {
+#if UNITY_EDITOR // if In Unity Editor
+        EditorApplication.ExitPlaymode(); //Exits Playmode
+#endif
+        Application.Quit(); //Quits Application
     }
 }
